@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}流程中心{% endblock title %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-3">
+    <!-- 左框标题按钮 -->
+      <a href="#" class="btn btn-primary btn-block mb-3">{{ f_detail }}</a>
+    <!-- car1 -->
+    <div class="card">
+    <!-- 下方标签 -->
+    <div class="card-header">
+      <h3 class="card-title">所有流程</h3>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          {% for flow in flow_all %}
+            <a href="{% url 'publicize:publicize-flow-detail' flow.id %}" class="nav-link">
+                <i class="far fa-circle text-danger"></i>{{ flow }}
+            </a>
+          {% endfor %}
+
+        </li>
+      </ul>
+    </div>
+    <!-- /.card-body -->
+  </div>
+
+</div>
+<!-- /.col -->
+<div class="col-md-9">
+  <div class="card">
+  <div class="card-header bg-primary">
+    <h3 class="card-title">{{ f_detail }}</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body bg-gray">
+    {% for detail in f_detail.step_set.all %}
+    <div class="card">
+    <div class="card-header bg-success">
+      <h3 class="card-title">{{ detail }}</h3>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+      </div>
+    </div>
+    <div class="card-body bg-gray-light">
+        {{ detail.step_detail_md }}
+    </div>
+    </div>
+    {% empty %}
+      <p>无任何流程</p>
+    {% endfor %}
+  </div>
+  <!-- /.card-body -->
+  <div class="card-footer bg-gray-dark">
+    {{ f_detail }}结束
+  </div>
+  <!-- /.card-footer -->
+</div>
+<!-- /.card -->
+</div>
+<!-- /.col -->
+</div>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
